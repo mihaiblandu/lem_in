@@ -1,0 +1,107 @@
+==7670== Memcheck, a memory error detector
+==7670== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==7670== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==7670== Command: ./lem_in.out
+==7670== Parent PID: 3264
+==7670== 
+--7670-- 
+--7670-- Valgrind options:
+--7670--    --leak-check=full
+--7670--    --show-leak-kinds=all
+--7670--    --track-origins=yes
+--7670--    --verbose
+--7670--    --log-file=valgrind-out.txt
+--7670-- Contents of /proc/version:
+--7670--   Linux version 4.13.0-45-generic (buildd@lgw01-amd64-011) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.9)) #50~16.04.1-Ubuntu SMP Wed May 30 11:18:27 UTC 2018
+--7670-- 
+--7670-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-bmi
+--7670-- Page sizes: currently 4096, max supported 4096
+--7670-- Valgrind library directory: /usr/lib/valgrind
+--7670-- Reading syms from /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out
+--7670-- Reading syms from /lib/x86_64-linux-gnu/ld-2.23.so
+--7670--   Considering /lib/x86_64-linux-gnu/ld-2.23.so ..
+--7670--   .. CRC mismatch (computed aa979a42 wanted 9019bbb7)
+--7670--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so ..
+--7670--   .. CRC is valid
+--7670-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--7670--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--7670--   .. CRC mismatch (computed eea41ea9 wanted 2009db78)
+--7670--    object doesn't have a symbol table
+--7670--    object doesn't have a dynamic symbol table
+--7670-- Scheduler: using generic scheduler lock implementation.
+--7670-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==7670== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-7670-by-mihaiblandu-on-???
+==7670== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-7670-by-mihaiblandu-on-???
+==7670== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-7670-by-mihaiblandu-on-???
+==7670== 
+==7670== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==7670== don't want to do, unless you know exactly what you're doing,
+==7670== or are doing some strange experiment):
+==7670==   /usr/lib/valgrind/../../bin/vgdb --pid=7670 ...command...
+==7670== 
+==7670== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==7670==   /path/to/gdb ./lem_in.out
+==7670== and then give GDB the following command
+==7670==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=7670
+==7670== --pid is optional if only one valgrind process is running
+==7670== 
+--7670-- REDIR: 0x401cfd0 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809e181 (???)
+--7670-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--7670--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--7670--   .. CRC mismatch (computed 2567ccf6 wanted 49420590)
+--7670--    object doesn't have a symbol table
+--7670-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--7670--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--7670--   .. CRC mismatch (computed 0e27c9a8 wanted ac585421)
+--7670--    object doesn't have a symbol table
+==7670== WARNING: new redirection conflicts with existing -- ignoring it
+--7670--     old: 0x0401cfd0 (strlen              ) R-> (0000.0) 0x3809e181 ???
+--7670--     new: 0x0401cfd0 (strlen              ) R-> (2007.0) 0x04c31020 strlen
+--7670-- REDIR: 0x401b920 (ld-linux-x86-64.so.2:index) redirected to 0x4c30bc0 (index)
+--7670-- REDIR: 0x401bb40 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c320d0 (strcmp)
+--7670-- REDIR: 0x401dd30 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35270 (mempcpy)
+--7670-- Reading syms from /lib/x86_64-linux-gnu/libc-2.23.so
+--7670--   Considering /lib/x86_64-linux-gnu/libc-2.23.so ..
+--7670--   .. CRC mismatch (computed 7a8ee3e4 wanted a5190ac4)
+--7670--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.23.so ..
+--7670--   .. CRC is valid
+--7670-- REDIR: 0x4ec9a00 (libc.so.6:strcasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--7670-- REDIR: 0x4ec5280 (libc.so.6:strcspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--7670-- REDIR: 0x4ecbcf0 (libc.so.6:strncasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--7670-- REDIR: 0x4ec76f0 (libc.so.6:strpbrk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--7670-- REDIR: 0x4ec7a80 (libc.so.6:strspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--7670-- REDIR: 0x4ec914b (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--7670-- REDIR: 0x4ec7400 (libc.so.6:rindex) redirected to 0x4c308a0 (rindex)
+--7670-- REDIR: 0x4ebe130 (libc.so.6:malloc) redirected to 0x4c2db20 (malloc)
+--7670-- REDIR: 0x4ebe4f0 (libc.so.6:free) redirected to 0x4c2ed80 (free)
+==7670== 
+==7670== HEAP SUMMARY:
+==7670==     in use at exit: 25 bytes in 2 blocks
+==7670==   total heap usage: 2 allocs, 0 frees, 25 bytes allocated
+==7670== 
+==7670== Searching for pointers to 2 not-freed blocks
+==7670== Checked 62,752 bytes
+==7670== 
+==7670== 1 bytes in 1 blocks are still reachable in loss record 1 of 2
+==7670==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7670==    by 0x4043CF: ft_memalloc (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670==    by 0x40388C: ft_strnew (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670==    by 0x40369E: get_next_line (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670==    by 0x400A18: get_the_ant_number (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670==    by 0x4006FA: main (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670== 
+==7670== 24 bytes in 1 blocks are still reachable in loss record 2 of 2
+==7670==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==7670==    by 0x403687: get_next_line (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670==    by 0x400A18: get_the_ant_number (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670==    by 0x4006FA: main (in /home/mihaiblandu/newproject/lem_in/newproject/lem_in.out)
+==7670== 
+==7670== LEAK SUMMARY:
+==7670==    definitely lost: 0 bytes in 0 blocks
+==7670==    indirectly lost: 0 bytes in 0 blocks
+==7670==      possibly lost: 0 bytes in 0 blocks
+==7670==    still reachable: 25 bytes in 2 blocks
+==7670==         suppressed: 0 bytes in 0 blocks
+==7670== 
+==7670== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==7670== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

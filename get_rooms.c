@@ -121,9 +121,12 @@ s_room create_room(char *str)
       new_room->name = arg[0];
       new_room->x  = ft_atoi(arg[1]);
       new_room->y = ft_atoi(arg[2]);
+      new_room->setlink = 0;
+
 
   return *new_room;
 }
+
 
 
 void get_the_rooms()

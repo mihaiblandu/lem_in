@@ -16,7 +16,7 @@ typedef struct  	s_room
 	int 		ispassed;
 	int 		setlink;
 	char		type;
-	struct  s_room *array_of_rooms;
+	struct  s_room **array_of_rooms;
 	struct  s_room *next;
 	struct  s_room *back;
 } s_room;
@@ -41,7 +41,7 @@ int   check_patern_links(char *str);
 int   get_len(char **str);
 int   all_digits(char *str);
 char  is_command(char *s);
-void set_the_links(s_room *rooms, s_link *links);
+s_room* set_the_links(s_room *rooms, s_link *links);
 
 
 # endif

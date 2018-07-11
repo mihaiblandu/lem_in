@@ -13,13 +13,14 @@ int ignore_comment(char a,char b)
 	return (1);
 }
 
+
 int			main(void)
 {
 
 	ft_printf("hello world!!!\n");
 
 	//number = get_the_ant_number();
-	//number=0;
+//	int number=0;
 	ft_printf("\nGet the number %d \n",  get_the_ant_number());
 
 
