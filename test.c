@@ -20,10 +20,11 @@
 ####
 ##start
 st 0 0
+st1 0 0
 ##end
 en 0 -3
 x1 0 -1
-##start
+
 x2 0 -2
 z1 0 1
 z2 0 2
@@ -62,13 +63,33 @@ st-z1
 ###sergergergqe rgwvthentyuij866rgwvthentyuij866ysegebyikusre
 #fdfdfdfgt44hhrdvsrtdu6jhw46u456uyq34tw56iu54i4w5tgw546u
 
-
+st-st1
 z1-z2
 z2-z3
 z3-z4
 #// sdsdsdddcdcd
 z4-z5
+z4-z4
+st-y7
+z4-z4
+z4-z4
+z4-z4
+z4-z4
+z4-z4
+z4-z4
+z4-z4
 z4-z5
+z4-z5
+z4-z5
+z4-z5
+z4-z5
+z4-z5
+z4-z5
+z4-z5
+z4-z3
+z4-z3
+z4-z3
+z4-z3
 z4-z5
 z4-z5
 z4-z5
@@ -76,7 +97,6 @@ z4-z5
 z5-z6
 z6-z7
 z7-x2
-x2-en
 x2-x1
 x1-st
 x1-y1

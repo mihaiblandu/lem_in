@@ -3,27 +3,51 @@
 #include "libft/includes/get_next_line.h"
 #include "libft/includes/lem_in.h"
 
-int is_repeated(s_room rooms, char *str)
+
+
+int is_repeated(s_room room, char *str)
 {
   int i;
+  int j;
 
   i = 0;
-  while(rooms.array_of_rooms[i] != '\0')
+  j = 0;
+  while(i < room.setlink)
   {
-      ft_printf("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
-    if(ft_strcmp(str, rooms.array_of_rooms[i]->name) == 0)
-    {
-      ft_printf("this is is_repeated\n");
-        return (0);
+    if (ft_strcmp(room.array_of_rooms[i]->name , str) == 0) {
+        j++;
+      if(j == 2)
+        return (1);
+
     }
     i++;
   }
-  ft_printf("ok -- exit\n");
-  return (1);
+  return (0);
 }
 
+s_room* delete_link(s_room *rooms)
+{
+int i;
+int j;
 
+i = 0;
+while (i < number_of_rooms) {
+  j = 0;
+  while (j < rooms[i].setlink) {
+  if(is_repeated(rooms[i], rooms[i].array_of_rooms[j]->name))
+    {
+        rooms[i].array_of_rooms[j] = rooms[i].array_of_rooms[rooms[i].setlink - 1];
+        rooms[i].array_of_rooms[rooms[i].setlink - 1] = '\0';
+        rooms[i].setlink -= 1;
+    }
+    else
+      j++;
+  }
+  i++;
 
+}
+  return (rooms);
+}
 
 int* count_links_per_state(s_room *rooms, s_link *links)
 {
@@ -68,8 +92,22 @@ int get_the_rooms_by_name(s_room *rooms, char *name)
 
 }
 
+void print_room(s_room rooms)
+{
+  int j;
 
-void print_rooms(s_room *rooms)
+
+    ft_printf("--------------------------\n");
+    ft_printf("the name %s | %d\n", rooms.name, rooms.setlink);
+    j = 0;
+    while (rooms.array_of_rooms[j] != '\0' && rooms.setlink > j) {
+      /* code */
+     ft_printf("***%s\n", rooms.array_of_rooms[j]->name);
+      j++;
+    }
+
+}
+void print_rooms(s_room *rooms, int *arr)
 {
   int i;
   int j;
@@ -78,7 +116,7 @@ void print_rooms(s_room *rooms)
   while(i < number_of_rooms)
   {
     ft_printf("--------------------------\n");
-    ft_printf("the name %s | %d\n", rooms[i].name, rooms[i].setlink);
+    ft_printf("the name %s (%c) | %d  | %d >>> %d  %c and %c\n", rooms[i].name, rooms[i].type,rooms[i].setlink, arr[i] , rooms[i].ord, rooms[i].type, rooms[i].ispassed);
     j = 0;
     while (rooms[i].array_of_rooms[j] != '\0' && rooms[i].setlink > j) {
       /* code */
@@ -120,18 +158,16 @@ void print_rooms(s_room *rooms)
         a = get_the_rooms_by_name(rooms, links[j].name_s);
         b = get_the_rooms_by_name(rooms, links[j].name_d);
 
-if (is_repeated(rooms[a], rooms[b].name))
- {
   rooms[a].array_of_rooms[rooms[a].setlink] = &rooms[b];
   rooms[b].array_of_rooms[rooms[b].setlink] = &rooms[a];
   rooms[a].setlink = rooms[a].setlink + 1;
   rooms[b].setlink = rooms[b].setlink + 1;
 
-  }
     j++;
 
     ft_printf("%d , %d \n", a + 1 , b + 1);
     }
-    print_rooms(rooms);
-    return rooms;
+    s_room *test = delete_link(rooms);
+
+    return test;
   }
