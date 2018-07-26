@@ -240,11 +240,11 @@ void get_the_rooms()
     int *arr;
 
      arr = count_links_per_state(ro, link);
-     print_rooms(ro, arr);
+     //print_rooms(ro, arr);
 
     set_level(ro);
     // mark_the_path(&ro[0]);
      ft_printf("Save RoomS\n");
 
-     //print_rooms(ro, arr);
+     print_rooms(ro, arr);
 }
