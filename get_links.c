@@ -3,8 +3,6 @@
 #include "libft/includes/get_next_line.h"
 #include "libft/includes/lem_in.h"
 
-
-
 int is_repeated(s_room room, char *str)
 {
   int i;
@@ -37,7 +35,7 @@ while (i < number_of_rooms) {
   if(is_repeated(rooms[i], rooms[i].array_of_rooms[j]->name))
     {
         rooms[i].array_of_rooms[j] = rooms[i].array_of_rooms[rooms[i].setlink - 1];
-        rooms[i].array_of_rooms[rooms[i].setlink - 1] = '\0';
+        rooms[i].array_of_rooms[rooms[i].setlink - 1] = NULL;
         rooms[i].setlink -= 1;
     }
     else
@@ -96,7 +94,6 @@ void print_room(s_room rooms)
 {
   int j;
 
-
     ft_printf("--------------------------\n");
     ft_printf("the name %s | %d\n", rooms.name, rooms.setlink);
     j = 0;
@@ -105,8 +102,8 @@ void print_room(s_room rooms)
      ft_printf("***%s\n", rooms.array_of_rooms[j]->name);
       j++;
     }
-
 }
+
 void print_rooms(s_room *rooms, int *arr)
 {
   int i;
@@ -138,13 +135,11 @@ void print_rooms(s_room *rooms, int *arr)
 
     while (i < number_of_rooms) {
       ft_printf(">>>>>>%d\n", arr[i]);
-
       i++;
     }
     i =0;
     while(i  < number_of_rooms)
     {
-
       rooms[i].ord = i;
       rooms[i].array_of_rooms = (s_room**)malloc(sizeof(s_room*) * arr[i]);
 

@@ -173,6 +173,8 @@ s_room create_room(char *str, char type)
       new_room->setlink = 0;
       new_room->type = type;
       new_room->ispassed = 'N';
+      new_room->level = 0;
+
 
 
   return *new_room;
@@ -238,11 +240,11 @@ void get_the_rooms()
     int *arr;
 
      arr = count_links_per_state(ro, link);
-     //print_rooms(ro, arr);
+     print_rooms(ro, arr);
 
-     set_level(ro);
-     mark_the_path(&ro[0]);
+    set_level(ro);
+    // mark_the_path(&ro[0]);
      ft_printf("Save RoomS\n");
 
-     print_rooms(ro, arr);
+     //print_rooms(ro, arr);
 }
