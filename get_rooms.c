@@ -247,4 +247,7 @@ void get_the_rooms()
      ft_printf("Save RoomS\n");
 
      print_rooms(ro, arr);
+     s_room *asta = &ro[0];
+
+    print_way(asta);
 }

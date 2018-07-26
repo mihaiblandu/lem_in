@@ -45,6 +45,7 @@ char  is_command(char *s);
 void  print_rooms(s_room *rooms, int *arr);
 int* count_links_per_state(s_room *rooms, s_link *links);
 s_room* set_the_links(s_room *rooms, s_link *links);
+void print_way(s_room *rooms);
 
 
 
