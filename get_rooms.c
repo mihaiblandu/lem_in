@@ -15,24 +15,71 @@ char is_command(char *s)
       return 'N';
 }
 
+
 void mark_the_path(s_room *room)
 {
   int k;
   k = 0;
-ft_printf("Calea %s  ||| %d %dtype %c :: %c\n",room->name, room->level,room->setlink, room->type, room->ispassed);
+
+  ft_printf("Calea %s  ||| %d %dtype %c :: %c\n",room->name, room->level,room->setlink, room->type, room->ispassed);
   while (k < room->setlink)
   {
-    if (room->type == 'E') {
 
-      ft_printf("URA  %s  ||| %d\n",room->name, room->level);
+    if (room->type == 'E' && room->level == room->array_of_rooms[k]->level + 1)
+    {
+      ft_printf("Calea =A");
+        room->array_of_rooms[k]->ispassed = 'D';
+        mark_the_path(room->array_of_rooms[k]);
+    }
+    else if(room->type != 'S' && room->level == room->array_of_rooms[k]->level + 1)
+    {
+        ft_printf("Calea = B");
+      room->array_of_rooms[k]->ispassed = 'D';
+      mark_the_path(room->array_of_rooms[k]);
+    }
+    else if (room->type == 'S') {
+        ft_printf("End");
+        return;
+      }
+
+    k++;
+  }
+}
+
+void go(s_room *room)
+{
+  int i;
+
+  i = 0;
+
+  ft_printf("GO");
+  while(i < number_of_rooms)
+  {
+    if(room[i].type == 'E' && room[i].level > 1)
+    {
+      room[i].ispassed = 'D';
+      mark_the_path(&room[i]);
+    }
+    i++;
+  }
+}
+
+void start(s_room *room)
+{
+  int i;
+
+  i = 0;
+    //ft_printf("(start)%s\n", room->name);
+  while(i < room->setlink)
+  {
+    if(room->ispassed == 'D' && room->array_of_rooms[i]->ispassed == 'D' && room->level == room->array_of_rooms[i]->level - 1)
+    {
+      ft_printf("%s - %s \n", room->name , room->array_of_rooms[i]->name );
+
+      start(room->array_of_rooms[i]);
       break;
     }
-    if (room->array_of_rooms[k]->ispassed == 'D' && room->level + 1 == room->array_of_rooms[k]->level) {
-      ft_printf(">>%d\n",k);
-      mark_the_path(room->array_of_rooms[k]);
-    break;
-    }
-    k++;
+    i++;
   }
 }
 
@@ -176,7 +223,6 @@ s_room create_room(char *str, char type)
       new_room->level = 0;
 
 
-
   return *new_room;
 }
 
@@ -235,7 +281,6 @@ void get_the_rooms()
       }
 
     }
-    //  set_the_links(room, link);
      s_room *ro = set_the_links(room, link);
     int *arr;
 
@@ -243,11 +288,23 @@ void get_the_rooms()
      //print_rooms(ro, arr);
 
     set_level(ro);
-    // mark_the_path(&ro[0]);
+
      ft_printf("Save RoomS\n");
+    // mark_the_path(ro);
 
-     print_rooms(ro, arr);
-     s_room *asta = &ro[0];
+      go(ro);
+      print_rooms(ro, arr);
 
-    print_way(asta);
+     i = 0;
+   while(i  < number_of_rooms)
+    {
+    if(ro[i].type == 'S' && ro[i].ispassed == 'D')
+      {
+         start(&ro[i]);
+         ft_printf("Ende _________________________________________\n");
+         break;
+      }
+    i++;
+    }
+
 }

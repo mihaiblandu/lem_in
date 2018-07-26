@@ -113,7 +113,7 @@ void print_rooms(s_room *rooms, int *arr)
   while(i < number_of_rooms)
   {
     ft_printf("--------------------------\n");
-    ft_printf("the name %s (%c) | %d  | %d >>> %d  %c and %c\n", rooms[i].name, rooms[i].type,rooms[i].setlink, arr[i] , rooms[i].ord, rooms[i].type, rooms[i].ispassed);
+    ft_printf("the name %s (%c) | %d  | %d >>> %d  level %d and %c\n", rooms[i].name, rooms[i].type,rooms[i].setlink, arr[i] , rooms[i].ord, rooms[i].level, rooms[i].ispassed);
     j = 0;
     while (rooms[i].array_of_rooms[j] != '\0' && rooms[i].setlink > j) {
       /* code */

@@ -40,7 +40,6 @@ void mark_the_it(s_room *room)
       if (room->array_of_rooms[k]->type == 'S') {
         /* code */
         ft_printf("URA  %s  ||| %d\n",room->array_of_rooms[k]->name, room->array_of_rooms[k]->level);
-
         print_way(room);
 
         return;
@@ -73,8 +72,8 @@ void mark_the_level(s_room *room, int i)
         if (room->array_of_rooms[k]->type == 'E')
          {
         room->array_of_rooms[k]->ispassed = 'D';
-        ft_printf("URA  %s  ||| %d\n",room->array_of_rooms[k]->name, room->array_of_rooms[k]->level);
-        mark_the_it(room);
+        ft_printf("URA  %s  >>>>>>>>>||| %d\n",room->array_of_rooms[k]->name, room->array_of_rooms[k]->level);
+        mark_the_it(room->array_of_rooms[k]);
 
           }
             room->array_of_rooms[k]->ispassed = 'Y';
@@ -87,10 +86,10 @@ void mark_the_level(s_room *room, int i)
 
       if (room->array_of_rooms[k]->type == 'E')
        {
-      room->array_of_rooms[k]->ispassed = 'D';
+         room->array_of_rooms[k]->ispassed = 'D';
         room->array_of_rooms[k]->level = room->level + 1;
-      ft_printf("URA  %s  ||| %d\n",room->array_of_rooms[k]->name, room->array_of_rooms[k]->level);
-      mark_the_it(room);
+      ft_printf("URA  %s  >>>>>>>>>>>>>>||| %d\n",room->array_of_rooms[k]->name, room->array_of_rooms[k]->level);
+      mark_the_it(room->array_of_rooms[k]);
 
         }
           room->array_of_rooms[k]->ispassed = 'Y';
@@ -120,6 +119,8 @@ s_room* set_level(s_room *rooms)
     }
     return rooms;
 }
+
+
 void print_way(s_room *room)
 {
     int i;
@@ -127,17 +128,17 @@ void print_way(s_room *room)
     i = 0;
     while(i < room->setlink)
     {
-      if(room->type == 'E')
-      {
-        ft_printf("End");
-        return;
-      }
-      if (room->array_of_rooms[i]->ispassed == 'D' && room->level == room->array_of_rooms[i]->level - 1) {
 
-        ft_printf("room calea corecta %s   %d", room->array_of_rooms[i]->name, room->array_of_rooms[i]->level);
-        print_way(room);
+      if (room->level == room->array_of_rooms[i]->level - 1) {
 
-        break;
+        ft_printf("\nroom calea corecta %s   %d", room->array_of_rooms[i]->name, room->array_of_rooms[i]->level);
+        print_way(room->array_of_rooms[i]);
+
+        if(room->array_of_rooms[i]->type == 'E')
+        {
+          ft_printf("\nEnd you mother'fucker\n\n\n");
+          return;
+        }
 
       }
       i++;
