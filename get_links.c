@@ -64,7 +64,7 @@ int* count_links_per_state(s_room *rooms, s_link *links)
 
       if(ft_strcmp(rooms[i].name, links[j].name_d) == 0 || ft_strcmp(rooms[i].name, links[j].name_s) == 0)
       {
-        ft_printf(">>>>%s <<%s  || %s  numar %d\n",rooms[i].name ,links[j].name_s,  links[j].name_d , i + 1);
+      //  ft_printf(">>>>%s <<%s  || %s  numar %d\n",rooms[i].name ,links[j].name_s,  links[j].name_d , i + 1);
         arr[i]++;
       }
       j++;
@@ -94,12 +94,12 @@ void print_room(s_room rooms)
 {
   int j;
 
-    ft_printf("--------------------------\n");
-    ft_printf("the name %s | %d\n", rooms.name, rooms.setlink);
+  //  ft_printf("--------------------------\n");
+    //ft_printf("the name %s | %d\n", rooms.name, rooms.setlink);
     j = 0;
     while (rooms.array_of_rooms[j] != '\0' && rooms.setlink > j) {
       /* code */
-     ft_printf("***%s\n", rooms.array_of_rooms[j]->name);
+    // ft_printf("***%s\n", rooms.array_of_rooms[j]->name);
       j++;
     }
 }
@@ -112,12 +112,12 @@ void print_rooms(s_room *rooms, int *arr)
   i = 0;
   while(i < number_of_rooms)
   {
-    ft_printf("--------------------------\n");
-    ft_printf("the name %s (%c) | %d  | %d >>> %d  level %d and %c\n", rooms[i].name, rooms[i].type,rooms[i].setlink, arr[i] , rooms[i].ord, rooms[i].level, rooms[i].ispassed);
+     ft_printf("--------------------------\n");
+     ft_printf("the name %s (%c) | %d  | %d >>> %d  level %d and %c\n", rooms[i].name, rooms[i].type,rooms[i].setlink, arr[i] , rooms[i].ord, rooms[i].level, rooms[i].ispassed);
     j = 0;
-    while (rooms[i].array_of_rooms[j] != '\0' && rooms[i].setlink > j) {
+    while (rooms[i].array_of_rooms[j] != NULL && rooms[i].setlink > j) {
       /* code */
-     ft_printf("***%s %d\n", rooms[i].array_of_rooms[j]->name, rooms[i].array_of_rooms[j]->level);
+  //   ft_printf("***%s %d\n", rooms[i].array_of_rooms[j]->name, rooms[i].array_of_rooms[j]->level);
       j++;
     }
     i++;
@@ -134,7 +134,7 @@ void print_rooms(s_room *rooms, int *arr)
     arr = count_links_per_state(rooms, links);
 
     while (i < number_of_rooms) {
-      ft_printf(">>>>>>%d\n", arr[i]);
+    //  ft_printf(">>>>>>%d\n", arr[i]);
       i++;
     }
     i =0;
@@ -160,7 +160,7 @@ void print_rooms(s_room *rooms, int *arr)
 
     j++;
 
-    ft_printf("%d , %d \n", a + 1 , b + 1);
+  //  ft_printf("%d , %d \n", a + 1 , b + 1);
     }
     s_room *test = delete_link(rooms);
 

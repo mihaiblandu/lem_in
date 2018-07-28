@@ -19,11 +19,10 @@ int			main(void)
 
 	ft_printf("hello world!!!\n");
 
-	//number = get_the_ant_number();
-//	int number=0;
 	ft_printf("\nGet the number %d \n",  get_the_ant_number());
 
 
 	get_the_rooms();
+
 return(0);
 }
