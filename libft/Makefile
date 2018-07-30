@@ -15,8 +15,9 @@ SRC = ft_mem/ft_memset.c ft_str/ft_bzero.c ft_mem/ft_memcpy.c ft_mem/ft_memccpy.
 		  ft_lst/ft_lstdel.c ft_lst/ft_lstadd.c ft_lst/ft_lstiter.c ft_lst/ft_lstmap.c ft_str/ft_strrev.c \
 		  ft_lst/ft_list_size.c ft_to/ft_uppercase.c ft_to/ft_lowercase.c ft_str/ft_sort.c ft_is/ft_max.c
 
-SRC_PRINTF = ft_printf/ft_precis_width.c ft_printf/ft_printf.c ft_printf/ft_type_big_s.c \
-		ft_printf/ft_type_d_i_c_s.c ft_printf/ft_type_u_o_x_p.c
+SRC_PRINTF = ft_printf/ft_printf.c ft_printf/parse_conversion.c ft_printf/ft_itoa_base.c ft_printf/concat.c ft_printf/ft1.c ft_printf/ft2.c ft_printf/wchar.c \
+			 		ft_printf/print_integer.c ft_printf/print_string.c ft_printf/print_char.c ft_printf/print_float.c ft_printf/get_float.c \
+							ft_printf/print_float_e.c ft_printf/print_float_g.c ft_printf/print_float_hex.c ft_printf/print_bonus.c ft_printf/print_color.c
 
 GNL_SRC = get_next_line/get_next_line.c
 

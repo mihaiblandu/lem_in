@@ -3,108 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprysiaz <tprysiaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mblandu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/23 17:02:27 by tprysiaz          #+#    #+#             */
-/*   Updated: 2017/02/24 20:04:19 by tprysiaz         ###   ########.fr       */
+/*   Created: 2018/02/09 08:34:10 by mblandu           #+#    #+#             */
+/*   Updated: 2018/07/29 17:50:31 by mblandu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include "ft_printf.h"
+#include "../includes/libft.h"
 
-int		ft_zero(t_lst *list)
+static int		print_conversion_p2(char **pos, va_list *args, t_flags *f)
 {
-	if (list->precision == -1 && !(list->flags[5] == '#'
-				&& (list->type == 'o' || list->type == 'O'
-					|| list->type == 'p')))
-		list->buf = "\0";
-	return (1);
+	if ((*pos)[-1] == 'e' || (*pos)[-1] == 'E')
+		return (print_float_e(args, f));
+	if ((*pos)[-1] == 'g' || (*pos)[-1] == 'G')
+		return (print_float_g(args, f));
+	if ((*pos)[-1] == 'a' || (*pos)[-1] == 'A')
+		return (print_float_hex(args, f));
+	if ((*pos)[-1] == 'n')
+		return (store_numchar(args, f));
+	if ((*pos)[-1] == 'b' || (*pos)[-1] == 'B')
+		return (print_binary(get_unsigned_int(args, f, 2), f));
+	if ((*pos)[-1] == 'q' || (*pos)[-1] == 'Q')
+		return (print_quat(get_unsigned_int(args, f, 4), f));
+	if ((*pos)[-1] == 'r')
+		return (print_nonprint(args, f));
+	if ((*pos)[-1] == 'v')
+		return (print_color_text(args));
+	if ((*pos)[-1] == 'w')
+		return (print_color_bg(args));
+	if ((*pos)[-1] == 'y')
+		return (print_color_reset());
+	if ((*pos)[-1] != '\0')
+		return (print_not_flag(f));
+	(*pos)--;
+	return (0);
 }
 
-void	ft_funcs_arr(t_lst *list)
+static int		print_conversion(char **pos, va_list *args, t_flags *f)
 {
-	list->g_funcs['c'] = &ft_type_c_s;
-	list->g_funcs['C'] = &ft_type_c_s;
-	list->g_funcs['s'] = &ft_type_c_s;
-	list->g_funcs['S'] = &ft_type_big_s;
-	list->g_funcs['p'] = &ft_type_p;
-	list->g_funcs['d'] = &ft_type_d_i;
-	list->g_funcs['D'] = &ft_type_d_i;
-	list->g_funcs['i'] = &ft_type_d_i;
-	list->g_funcs['o'] = &ft_type_u_o_x;
-	list->g_funcs['O'] = &ft_type_big_u_o;
-	list->g_funcs['u'] = &ft_type_u_o_x;
-	list->g_funcs['U'] = &ft_type_big_u_o;
-	list->g_funcs['x'] = &ft_type_u_o_x;
-	list->g_funcs['X'] = &ft_type_u_o_x;
+	set_arg(pos, args, f);
+	set_flags(pos, f);
+	set_minwid(pos, args, f);
+	set_prec(pos, args, f);
+	set_lenmod(pos, f);
+	f->conv = (*pos)[0];
+	(*pos)++;
+	if ((*pos)[-1] == 'd' || (*pos)[-1] == 'i' || (*pos)[-1] == 'D')
+		return (print_decimal(get_signed_int(args, f, 10), f));
+	if ((*pos)[-1] == 'u' || (*pos)[-1] == 'U')
+		return (print_decimal(get_unsigned_int(args, f, 10), f));
+	if ((*pos)[-1] == 'o' || (*pos)[-1] == 'O')
+		return (print_octal(get_unsigned_int(args, f, 8), f));
+	if ((*pos)[-1] == 'x' || (*pos)[-1] == 'X')
+		return (print_hex(get_unsigned_int(args, f, 16), f, 0));
+	if ((*pos)[-1] == 'p')
+		return (print_hex(get_unsigned_int(args, f, 16), f, 1));
+	if ((*pos)[-1] == 's' || (*pos)[-1] == 'S')
+		return (print_string(args, f));
+	if ((*pos)[-1] == 'c' || (*pos)[-1] == 'C')
+		return (print_char(args, f));
+	if ((*pos)[-1] == 'f' || (*pos)[-1] == 'F')
+		return (print_float(args, f));
+	return (print_conversion_p2(pos, args, f));
 }
 
-void	ft_structure_zero(t_lst *list)
+int			ft_printf(const char *format, ...)
 {
-	int i;
+	char	*pos;
+	va_list	args;
+	t_flags	f;
 
-	i = -1;
-	list->buf = NULL;
-	while (++i < 6)
-		(list->flags)[i] = 0;
-	list->width = 0;
-	list->precision = 0;
-	(list->mod)[0] = 0;
-	(list->mod)[1] = 0;
-	list->type = 0;
-}
-
-int		ft_flags(char *f, t_lst *list)
-{
-	int j;
-
-	j = 0;
-	while (ft_strchr("-+ #0", f[++list->i]))
-		(list->flags[f[list->i] % 6] = f[list->i]);
-	while (f[list->i] >= 48 && f[list->i] <= 57)
-		list->width = (list->width * 10) + (f[list->i++]) - 48;
-	if (f[list->i] == '.')
+	f.num_char = 0;
+	pos = (char*)format;
+	va_start(args, format);
+	va_copy(f.arg_start, args);
+	while (*pos)
 	{
-		while (f[(++list->i)] >= 48 && f[list->i] <= 57)
-			list->precision = (list->precision * 10) + f[list->i] - 48;
-		(list->precision == 0) ? list->precision = -1 : 0;
-	}
-	while (f[list->i] == 'h' || f[list->i] == 'l'
-			|| f[list->i] == 'j' || f[list->i] == 'z')
-		list->mod[j++ % 2] = f[list->i++];
-	if (!(ft_strchr("sSpdDioOuUxXcC", f[list->i])) && f[list->i] != 32)
-	{
-		list->buf = (char*)malloc(2);
-		list->buf[0] = f[list->i];
-		list->buf[1] = '\0';
-		ft_precision_character(list);
-	}
-	return ((ft_strchr("sSpdDioOuUxXcC", f[list->i]))
-			? list->type = f[list->i] : 0);
-}
-
-int		ft_printf(const char *format, ...)
-{
-	t_lst	list;
-	va_list	ap;
-
-	list.i = -1;
-	va_start(ap, format);
-	ft_funcs_arr(&list);
-	list.counter = 0;
-	while (format[++list.i])
-	{
-		if (format[list.i] == '%')
+		if (*pos != '%')
 		{
-			if (format[list.i + 1] == '\0')
-				return (0);
-			ft_structure_zero(&list);
-			if (ft_flags((char*)format, &list) > 0)
-				list.g_funcs[(int)list.type](&list, ap);
+			write(1, pos, 1);
+			f.num_char++;
+			pos++;
 		}
 		else
-			list.counter += write(1, &format[list.i], 1);
+		{
+			pos++;
+			f.num_char += print_conversion(&pos, &args, &f);
+		}
 	}
-	va_end(ap);
-	return (list.counter);
+	va_end(args);
+	return (f.num_char);
 }

@@ -1,0 +1,158 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D370D3B4210DF653004C8C04 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		D370D3B5210DF653004C8C04 /* ft_put */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_put; sourceTree = "<group>"; };
+		D370D3B6210DF653004C8C04 /* ft_to */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_to; sourceTree = "<group>"; };
+		D370D3B7210DF653004C8C04 /* ft_str */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_str; sourceTree = "<group>"; };
+		D370D3B8210DF653004C8C04 /* includes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = includes; sourceTree = "<group>"; };
+		D370D3B9210DF653004C8C04 /* ft_printf */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_printf; sourceTree = "<group>"; };
+		D370D3BA210DF653004C8C04 /* ft_lst */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_lst; sourceTree = "<group>"; };
+		D370D3BB210DF653004C8C04 /* get_next_line */ = {isa = PBXFileReference; lastKnownFileType = folder; path = get_next_line; sourceTree = "<group>"; };
+		D370D3BC210DF653004C8C04 /* ft_mem */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_mem; sourceTree = "<group>"; };
+		D370D3BD210DF653004C8C04 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
+		D370D3BE210DF653004C8C04 /* ft_is */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ft_is; sourceTree = "<group>"; };
+		D370D3BF210DF653004C8C04 /* libft.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libft.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D370D3AE210DF653004C8C04 = {
+			isa = PBXGroup;
+			children = (
+				D370D3B4210DF653004C8C04 /* Makefile */,
+				D370D3B5210DF653004C8C04 /* ft_put */,
+				D370D3B6210DF653004C8C04 /* ft_to */,
+				D370D3B7210DF653004C8C04 /* ft_str */,
+				D370D3B8210DF653004C8C04 /* includes */,
+				D370D3B9210DF653004C8C04 /* ft_printf */,
+				D370D3BA210DF653004C8C04 /* ft_lst */,
+				D370D3BB210DF653004C8C04 /* get_next_line */,
+				D370D3BC210DF653004C8C04 /* ft_mem */,
+				D370D3BD210DF653004C8C04 /* .DS_Store */,
+				D370D3BE210DF653004C8C04 /* ft_is */,
+				D370D3BF210DF653004C8C04 /* libft.a */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D370D3B3210DF653004C8C04 /* libft */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = D370D3C0210DF653004C8C04 /* Build configuration list for PBXLegacyTarget "libft" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /nfs/2017/m/mblandu/42work/lem_in/x/libft;
+			dependencies = (
+			);
+			name = libft;
+			passBuildSettingsInEnvironment = 1;
+			productName = libft;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		D370D3AF210DF653004C8C04 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = D370D3B2210DF653004C8C04 /* Build configuration list for PBXProject "libft" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D370D3AE210DF653004C8C04;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D370D3B3210DF653004C8C04 /* libft */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		D370D3B0210DF653004C8C04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		D370D3B1210DF653004C8C04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		D370D3C1210DF653004C8C04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = libft;
+			};
+			name = Debug;
+		};
+		D370D3C2210DF653004C8C04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = libft;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D370D3B2210DF653004C8C04 /* Build configuration list for PBXProject "libft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D370D3B0210DF653004C8C04 /* Debug */,
+				D370D3B1210DF653004C8C04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D370D3C0210DF653004C8C04 /* Build configuration list for PBXLegacyTarget "libft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D370D3C1210DF653004C8C04 /* Debug */,
+				D370D3C2210DF653004C8C04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D370D3AF210DF653004C8C04 /* Project object */;
+}

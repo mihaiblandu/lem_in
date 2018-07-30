@@ -3,36 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprysiaz <tprysiaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mblandu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/18 17:21:58 by tprysiaz          #+#    #+#             */
-/*   Updated: 2017/05/15 20:17:47 by tprysiaz         ###   ########.fr       */
+/*   Created: 2018/01/11 19:47:44 by mblandu           #+#    #+#             */
+/*   Updated: 2018/07/11 18:53:08 by mblandu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 1000
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdlib.h>
+# define BUFF_SIZE 1
+# define ERROR -1
+# define END 0
+# define LINE 1
+# define FD fd % 4864
 # include "libft.h"
-
-typedef struct		s_gnl
-{
-	int				fd;
-	char			*rest;
-	struct s_gnl	*next;
-}					t_gnl;
-
-typedef struct		s_structure
-{
-	char	buf[BUFF_SIZE + 1];
-	int		bts;
-	char	*chr;
-	char	*ptr;
-}					t_vault;
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <unistd.h>
 
 int					get_next_line(const int fd, char **line);
-
+typedef struct		s_line
+{
+	char			*tmp;
+	int				define;
+}					t_line;
 #endif

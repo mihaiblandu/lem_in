@@ -2,8 +2,7 @@ NAME = lem_in.out
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c ant_number.c get_rooms.c get_links.c create_tree.c
-
+SRC = main.c ant_number.c get_rooms.c get_links.c create_tree.c print_tools.c run_the_ants.c other_tools.c
 OBJ = $(patsubst %.c, %.o, $(SRC))
 
 all: $(NAME)

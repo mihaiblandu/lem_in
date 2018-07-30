@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprysiaz <tprysiaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mblandu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/05 16:48:39 by tprysiaz          #+#    #+#             */
-/*   Updated: 2017/05/15 19:59:37 by tprysiaz         ###   ########.fr       */
+/*   Created: 2018/07/29 15:10:11 by mblandu           #+#    #+#             */
+/*   Updated: 2018/07/29 15:10:15 by mblandu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+int		ft_list_size(t_list *list)
 {
-	t_list *list;
+	int count;
 
-	list = *alst;
-	new->next = *alst;
-	*alst = new;
-(void)list;
+	count = 0;
+	while (list)
+	{
+		list = list->next;
+		count++;
+	}
+	return (count);
 }

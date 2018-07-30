@@ -3,86 +3,113 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tprysiaz <tprysiaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mblandu <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/18 14:27:36 by tprysiaz          #+#    #+#             */
-/*   Updated: 2017/05/15 20:17:41 by tprysiaz         ###   ########.fr       */
+/*   Created: 2018/01/11 19:47:26 by mblandu           #+#    #+#             */
+/*   Updated: 2018/07/11 18:52:42 by mblandu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 
-char	*ft_111(char **rest, int bts, char *buf)
+static char		*ft_cat(t_line *s1, char *buf, int fd)
 {
-	char *ptr;
-	char *ptr2;
+	char	*new;
 
-	ptr = *rest;
-	if (bts < BUFF_SIZE)
-	{
-		ptr2 = ft_strsub(buf, 0, bts);
-		*rest = ft_strjoin(*rest, ptr2);
-		free(ptr2);
-	}
+	if (s1[FD].tmp == NULL)
+		new = ft_strdup(buf);
 	else
-		*rest = ft_strjoin(*rest, buf);
-	free(ptr);
-	return (*rest);
+		new = ft_strjoin(s1[FD].tmp, buf);
+	free(s1[FD].tmp);
+	return (new);
 }
 
-char	*ft_initialize(char **rest, char **line, char *chr)
+static int		fill(char *s)
 {
-	*line = ft_strsub(*rest, 0, chr - *rest);
-	return (*rest);
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
-int		ft_read_write(int fd, char **rest, char **line)
+static int		check_n(t_line *s, const int fd, char **line)
 {
-	t_vault		s;
+	char		*new;
+	int			i;
 
-	ft_bzero(s.buf, BUFF_SIZE + 1);
-	while ((!(s.chr = ft_strchr(*rest, '\n'))) > 0)
-		if ((s.bts = read(fd, s.buf, BUFF_SIZE)) > 0)
-			*rest = ft_111(rest, s.bts, s.buf);
-		else if (s.bts == 0)
+	if (s[FD].tmp == NULL)
+		return (-2);
+	i = fill(s[FD].tmp);
+	if (i == -1)
+		return (-2);
+	else
+	{
+		s[FD].tmp[i++] = '\0';
+		free(*line);
+		*line = ft_strdup(s[FD].tmp);
+		new = ft_strdup(&s[FD].tmp[i]);
+		free(s[FD].tmp);
+		s[FD].tmp = ft_strdup(new);
+		free(new);
+		return (LINE);
+	}
+}
+
+static int		read_file(t_line *s, const int fd, char **line, char *buf)
+{
+	int		res;
+	char	*new;
+	int		i;
+
+	while (((res = read(fd, buf, BUFF_SIZE)) != 0) && res != -1)
+	{
+		i = fill(buf);
+		if (i == -1)
+			s[FD].tmp = ft_cat(s, buf, fd);
+		else
 		{
-			*line = ft_strdup(*rest);
-			free(*rest);
-			*rest = ft_strnew(0);
-			if (*line[0] != '\0')
-				return (1);
-			break ;
+			s[FD].tmp = ft_cat(s, buf, fd);
+			i = fill(s[FD].tmp);
+			s[FD].tmp[i++] = '\0';
+			free(*line);
+			*line = ft_strdup(s[FD].tmp);
+			new = ft_strdup(&s[FD].tmp[i]);
+			free(s[FD].tmp);
+			s[FD].tmp = ft_strdup(new);
+			free(new);
+			return (LINE);
 		}
-		else if (s.bts < 0)
-			return (-1);
-	if (*rest[0] != '\0')
-	{
-		s.ptr = ft_initialize(rest, line, s.chr);
-		*rest = ft_strdup(s.chr + 1);
-		free(s.ptr);
-		return (1);
+		ft_bzero(buf, BUFF_SIZE + 1);
 	}
-	return (0);
+	return (res);
 }
 
-int		get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
-	static	t_gnl	*lst;
-	t_gnl			*tp;
+	static t_line	s[4864];
+	char			buf[BUFF_SIZE + 1];
 
+	ft_bzero(buf, BUFF_SIZE + 1);
+	if (line == (void*)0)
+		return (ERROR);
+	*line = ft_strdup("\0");
 	if (fd < 0)
-		return (-1);
-	tp = lst;
-	while (tp)
+		return (ERROR);
+	if ((s[FD].define = check_n(s, fd, line)) == LINE)
+		return (LINE);
+	s[FD].define = read_file(s, fd, line, buf);
+	if (s[FD].define == END && s[FD].tmp != NULL && s[FD].tmp[0] != '\0')
 	{
-		if (tp->fd == fd)
-			return (ft_read_write(tp->fd, &tp->rest, line));
-		tp = tp->next;
+		*line = ft_strdup(s[FD].tmp);
+		free(s[FD].tmp);
+		s[FD].tmp = NULL;
+		return (LINE);
 	}
-	tp = (t_gnl*)malloc(sizeof(t_gnl));
-	tp->fd = fd;
-	tp->rest = ft_strnew(0);
-	tp->next = lst;
-	lst = tp;
-	return (ft_read_write(tp->fd, &tp->rest, line));
+	return (s[FD].define);
 }
