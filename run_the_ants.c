@@ -29,22 +29,79 @@ void    print_start_end(s_room *rooms)
     }
 }
 
-/*
-void    run_the_ants(s_room *room)
-{
-    int ants;
-    ants = 1;  
-    while (ants <= number_of_ants)
+void  get_start(s_room *rooms)
+{   
+
+   int     i;
+
+    i = 0;
+    while (i < number_of_rooms)
     {
-        k = 0;
-        while (last >= 0)
+        if(rooms[i].type == 'S')
         {
-            room[last] = room[last - 1];
-            last--;
+            first = i;
+            break ;
         }
-        ants++;
-        if (room[end].int == number_of_rooms)
-            return (exit);
+        i++;
     }
 }
-*/
+
+void  get_end(s_room *rooms)
+{   
+
+   int     i;
+
+    i = 0;
+    while (i < number_of_rooms)
+    {
+        if(rooms[i].type == 'E')
+        {
+            end = i;
+            break ;
+        }
+        i++;
+    }
+}
+
+void    get_end_and_start(s_room *room)
+{
+    end = 0;
+    first = 0;
+    get_start(room);
+    get_end(room);
+}
+
+
+s_path    *save_ants(s_room *room, s_path *path, int level)
+{
+    int i;
+    int k;
+    
+    i = 0;
+    k = 0;
+    path = (s_path*)malloc(sizeof(s_path) * level);
+    while (room->type != 'E')
+    {
+        if(room->type == 'E')
+            {
+                ft_printf("%s - %s \n", room->name, room->array_of_rooms[i]->name);
+                path[k].name = room->name;
+                path[k].type = 'E';
+                path[k].ants = 0;
+                return path;
+            }
+        if ((room->ispassed == 'P' && room->array_of_rooms[k]->ispassed == 'P') && (room->level == room->array_of_rooms[k]->level - 1))
+        {
+                ft_printf("%s - %s \n", room->name, room->array_of_rooms[i]->name);
+               
+                path[k].name = room->name;
+                path[k].type = room->type;
+                path[k].ants = 0;
+                room = room->array_of_rooms[i];
+                i = 0;
+                k++;
+        }
+        i++;
+    }
+    return path;
+}

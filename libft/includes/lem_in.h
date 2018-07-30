@@ -38,9 +38,18 @@ typedef struct		s_link
 	char			*name_d;
 }					s_link;
 
+typedef struct		s_path
+{
+	char			*name;
+	int				ants;
+	char			type;
+}					s_path;
+
 int					number_of_rooms;
 int					number_of_links;
 int					number_of_ants;
+int					first;
+int					end;
 
 void				print_room(s_room	rooms);
 s_room				*set_level(s_room *rooms);
@@ -57,10 +66,13 @@ char				is_command(char *s);
 void				print_rooms(s_room *rooms);
 int					*count_links_per_state(s_room *rooms, s_link *links);
 s_room				*set_the_links(s_room	*rooms, \
-		s_link	*links, int	a, int	b, \
+		s_link	*links, \
 		int	i, int	j);
 void				print_way(s_room	*rooms);
 void				print_start_end(s_room *rooms);
 void    			print_error(char *str);
+void    get_end_and_start(s_room *room);
+s_path    *save_ants(s_room *room, s_path *path, int level);
+void	mark_the_path_mod(s_room *room);
 
 #endif

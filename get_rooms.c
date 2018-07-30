@@ -52,6 +52,32 @@ void	mark_the_path(s_room *room)
 	}
 }
 
+void	mark_the_path_mod(s_room *room)
+{
+	int		k;
+
+	k = 0;
+	while (k < room->setlink)
+	{
+		if (room->level == room->array_of_rooms[k]->level + 1)
+		{
+			ft_printf("\nRoom =====%s    ((%d))\n", room->name, room->setlink);
+			room->ispassed = 'P';
+			room->array_of_rooms[k]->ispassed = 'P';
+			mark_the_path_mod(room->array_of_rooms[k]);
+			break ;
+		}
+		if (room->type == 'S')
+		{
+			ft_printf("\nRoom =====%s    ((%d))\n", room->name, room->setlink);
+			room->ispassed = 'P';
+			room->array_of_rooms[k]->ispassed = 'P';
+			return ;
+		}
+		k++;
+	}
+}
+
 void	go(s_room *room)
 {
 	int		i;
@@ -68,7 +94,7 @@ void	go(s_room *room)
 	}
 }
 
-void	start(s_room *room)
+void	start(s_room *room, s_path *path, int k)
 {
 	int i;
 
@@ -78,8 +104,14 @@ void	start(s_room *room)
 		if (room->ispassed == 'D' && room->array_of_rooms[i]->ispassed == 'D' \
 				&& room->level == room->array_of_rooms[i]->level - 1)
 		{
-      ft_printf("%s - %s \n", room->name, room->array_of_rooms[i]->name);
-			start(room->array_of_rooms[i]);
+			ft_printf("%s - %s \n", room->name, room->array_of_rooms[i]->name);
+			path[k].name = room->name;
+			path[k].type = room->type;
+			path[k].ants = 0;
+			path[k + 1].name = room->array_of_rooms[i]->name;
+			path[k + 1].type = room->array_of_rooms[i]->type;
+			path[k + 1].ants = 0;
+			start(room->array_of_rooms[i], path,k + 1);
 			break ;
 		}
 		i++;
@@ -214,27 +246,83 @@ void	save_thelinks(s_link *link, char *s, char *d)
 	link->name_d = ft_strcpy(link->name_d, d);
 }
 
-void	get_the_path(s_room *ro, s_link *link)
+void shift_to_left(s_path *path,int len)
+{	
+	int		i;
+
+	i = 0;
+	while (i < len)
+	{
+		if(path[i].ants != 0)
+		ft_printf("<L%s [%d]>", path[i].name, path[i].ants);
+		i++;
+	}
+	ft_printf("\n");
+	i = len;
+	while (i > 0)
+	{
+		if(i != 1)
+		{
+		path[i - 1].ants = path[i - 2].ants;
+		}
+		else
+		{
+			path[i - 1].ants = 0;
+		}
+		i--;
+	}
+
+}
+
+void put_ants(s_path *path, int len)
 {
 	int		i;
 
 	i = 0;
-	ro = set_the_links(ro, link, 0, 0, 0, 0);
+	while(!(path[len - 1].ants == number_of_ants))
+	{	
+		if(i <= number_of_ants)
+			{
+				path[0].ants = i;
+				i++;
+			}
+				else
+			path[0].ants = 0;
+		shift_to_left(path, len);	
+	}
+	shift_to_left(path, len);
+	ft_printf("\n");
+	exit(0);
+}
+
+void	get_the_path(s_room *ro, s_link *link)
+{
+	int		i;
+	s_path	*path;
+
+
+	i = ro[end].level;
+	ro = set_the_links(ro, link, 0, 0);
 	set_level(ro);
 	go(ro);
 	i = 0;
 	print_start_end(ro);
-	while (i < number_of_rooms)
+	get_end_and_start(ro);
+	ft_printf("%d    %d\n", first, end);
+	path = (s_path*)malloc(sizeof(s_path) * ro[end].level);
+	while (i < ro[end].level)
 	{
-		if (ro[i].type == 'S' && ro[i].ispassed == 'D')
-		{
-			start(&ro[i]);
-			ft_printf("___________\n");
-			break ;
-		}
+		path[i].name =(char*)malloc(sizeof(char) * 5);
 		i++;
 	}
-	print_rooms(ro);
+	start(&ro[first], path, 0);
+	i = 0;
+	while (i < ro[end].level)
+	{
+		//ft_printf(">>>> %s   %c  %d\n", path[i].name, path[i].type, path[i].ants);
+	i++;
+	}
+	put_ants(path, ro[end].level);
 
 }
 

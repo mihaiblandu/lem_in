@@ -101,10 +101,12 @@ int		get_the_rooms_by_name(s_room *rooms, char *name)
 	exit(0);
 }
 
-s_room	*set_the_links(s_room *rooms, s_link *links, int a, int b, int i, int j)
+s_room	*set_the_links(s_room *rooms, s_link *links, int i, int j)
 {
 	int		*arr;
 	s_room	*test;
+	int		a;
+	int		b;
 
 	arr = count_links_per_state(rooms, links);
 	while (i < number_of_rooms)
