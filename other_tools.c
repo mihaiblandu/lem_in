@@ -17,6 +17,6 @@
 
 void    print_error(char *temp)
 {
-    ft_printf("Error", check_patern_room(temp), temp);
+    ft_printf("Error %s\n", temp);
     exit(0);
 }

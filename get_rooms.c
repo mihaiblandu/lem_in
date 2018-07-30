@@ -61,7 +61,6 @@ void	mark_the_path_mod(s_room *room)
 	{
 		if (room->level == room->array_of_rooms[k]->level + 1)
 		{
-			ft_printf("\nRoom =====%s    ((%d))\n", room->name, room->setlink);
 			room->ispassed = 'P';
 			room->array_of_rooms[k]->ispassed = 'P';
 			mark_the_path_mod(room->array_of_rooms[k]);
@@ -69,7 +68,6 @@ void	mark_the_path_mod(s_room *room)
 		}
 		if (room->type == 'S')
 		{
-			ft_printf("\nRoom =====%s    ((%d))\n", room->name, room->setlink);
 			room->ispassed = 'P';
 			room->array_of_rooms[k]->ispassed = 'P';
 			return ;
@@ -208,10 +206,7 @@ char	check_patern_room(char *str)
 		if (get_len(array) == 3)
 		{
 			if (array[0][0] == 'L' || array[0][0] == 'l')
-			{
-				ft_printf("THIS IS CATCHED  ROOM%s\n", str);
-				exit(0);
-			}
+				print_error("Invalide name");
 			if (all_digits(array[1]) && (all_digits(array[2])))
 				return ('R');
 		}
@@ -254,7 +249,7 @@ void shift_to_left(s_path *path,int len)
 	while (i < len)
 	{
 		if(path[i].ants != 0)
-		ft_printf("<L%s [%d]>", path[i].name, path[i].ants);
+		ft_printf("L%10s [%d]	", path[i].name, path[i].ants);
 		i++;
 	}
 	ft_printf("\n");
@@ -308,22 +303,14 @@ void	get_the_path(s_room *ro, s_link *link)
 	i = 0;
 	print_start_end(ro);
 	get_end_and_start(ro);
-	ft_printf("%d    %d\n", first, end);
 	path = (s_path*)malloc(sizeof(s_path) * ro[end].level);
 	while (i < ro[end].level)
 	{
-		path[i].name =(char*)malloc(sizeof(char) * 5);
+		path[i].name =(char*)malloc(sizeof(char) * 10);
 		i++;
 	}
 	start(&ro[first], path, 0);
-	i = 0;
-	while (i < ro[end].level)
-	{
-		//ft_printf(">>>> %s   %c  %d\n", path[i].name, path[i].type, path[i].ants);
-	i++;
-	}
 	put_ants(path, ro[end].level);
-
 }
 
 void	get_the_rooms(void)
