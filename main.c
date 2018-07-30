@@ -25,7 +25,9 @@ int		ignore_comment(char a, char b)
 int		main(void)
 {
 	number_of_ants = get_the_ant_number();
+	number_of_rooms = 0;
+	number_of_links = 0;
 	ft_printf("Number of ANTS %d \n\n", number_of_ants);
-	get_the_rooms();
+	get_the_rooms('N', 0);
 	return (0);
 }

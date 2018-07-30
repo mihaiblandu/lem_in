@@ -32,17 +32,20 @@ void	print_rooms(s_room *ro)
 	i = 0;
 	while (i < number_of_rooms)
 	{
-		ft_printf("--------------------------------------------------------------------------------------------------\n");
-		ft_printf(">>>>ROOM %s (%d) %d %d %c %c\n", ro[i].name, ro[i].level, ro[i].x, ro[i].y, ro[i].ispassed, ro[i].type);
-		if(ro[i].ispassed != 'Y')
+		ft_printf("ROOM %s (%d) %d %d %c %c\n", ro[i].name, ro[i].level, \
+			ro[i].x, ro[i].y, ro[i].ispassed, ro[i].type);
+		if (ro[i].ispassed != 'Y')
 		{
-			ft_printf("camara %s (%d) %d %d %c %c\n", ro[i].name, ro[i].level, ro[i].x, ro[i].y, ro[i].ispassed, ro[i].type);
+			ft_printf("camara %s (%d) %d %d %c %c\n", ro[i].name, \
+				ro[i].level, ro[i].x, ro[i].y, \
+				ro[i].ispassed, ro[i].type);
 		}
 		j = 0;
 		while (ro[i].array_of_rooms[j] != NULL && ro[i].setlink > j)
 		{
-			ft_printf("Room %s %c %c %d\n", ro[i].array_of_rooms[j]->name, ro[i].array_of_rooms[j]->type ,ro[i].array_of_rooms[j]->ispassed, ro[i].array_of_rooms[j]->level);
-			
+			ft_printf("Link %s %c %c\n", ro[i].array_of_rooms[j]->name, \
+				ro[i].array_of_rooms[j]->type, \
+				ro[i].array_of_rooms[j]->ispassed);
 			j++;
 		}
 		i++;
