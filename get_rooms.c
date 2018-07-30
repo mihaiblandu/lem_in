@@ -249,7 +249,7 @@ void shift_to_left(s_path *path,int len)
 	while (i < len)
 	{
 		if(path[i].ants != 0)
-		ft_printf("L%10s [%d]	", path[i].name, path[i].ants);
+		ft_printf(" L%10s [%d] ", path[i].name, path[i].ants);
 		i++;
 	}
 	ft_printf("\n");
